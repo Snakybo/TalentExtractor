@@ -1,6 +1,6 @@
 # WoW Talent Extractor
 
-A WoW addon to be used alongside [WoW Talent Parser](https://github.com/Snakybo/TalentParser) to provide talent and PvP talent data for [LibTalentInfo](https://github.com/snakybo/LibTalentInfo).
+A WoW addon to be used alongside [Talent Parser](https://github.com/Snakybo/TalentParser) to provide talent and PvP talent data for [LibTalentInfo](https://github.com/snakybo/LibTalentInfo).
 
 The usage chain of these three items is:
 
@@ -18,4 +18,4 @@ The addon will automatically work when you log in or switch specialization. It c
 
 The data is saved inside of the `WTF` folder.
 
-To manipulate the data, use [WoW Talent Parser](https://github.com/Snakybo/TalentParser).
+To manipulate the data, use [Talent Parser](https://github.com/Snakybo/TalentParser).
