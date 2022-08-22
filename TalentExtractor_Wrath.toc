@@ -1,0 +1,11 @@
+## Interface: 30400
+## Title: TalentExtractor
+## Author: Snakybo
+## Notes: Automatically retrieves talent and PvP talents and serializes them for LibTalentInfo.
+## SavedVariables: TalentExtractorData
+## Version: @project-version@
+## X-Category: Developer Tool
+
+Libs\Libs.xml
+
+TalentExtractor_Legacy.lua
