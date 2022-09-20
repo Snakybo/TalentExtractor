@@ -59,16 +59,21 @@ local function GetTalents()
 					local entry = C_Traits.GetEntryInfo(activeConfigId, entryId)
 					local definition = C_Traits.GetDefinitionInfo(entry.definitionID)
 
-					table.insert(nodeData.entryIDs, {
-						entryID = entryId,
-						type = entry.type,
-						definitionID = entry.definitionID,
-						spellID = definition.spellID,
-						name = GetSpellInfo(definition.spellID)
-					})
+					-- Hopefully temporary check, some NYI talents do not have a spellID but instead have overrideName and overrideIcon.
+					if definition.spellID ~= nil then
+						table.insert(nodeData.entryIDs, {
+							entryID = entryId,
+							type = entry.type,
+							definitionID = entry.definitionID,
+							spellID = definition.spellID,
+							name = GetSpellInfo(definition.spellID)
+						})
+					end
 				end
 
-				table.insert(result, nodeData)
+				if #nodeData.entryIDs > 0 then
+					table.insert(result, nodeData)
+				end
 			end
 		end
 	end
