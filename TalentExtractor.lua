@@ -14,23 +14,64 @@ local initialSpecs = {
 	WARLOCK = 1454,
 	MONK = 1450,
 	DRUID = 1447,
-	DEMONHUNTER = 1456
+	DEMONHUNTER = 1456,
+	EVOKER = 1465
 }
 
---- @return TalentContainer[]
+--- @return table<integer,TalentNode[]>
 local function GetTalents()
+	--- @type TalentNode[]
 	local result = {}
 
-	for tier = 1, MAX_TALENT_TIERS do
-		for column = 1, NUM_TALENT_COLUMNS do
-			local talentID, name = GetTalentInfo(tier, column, 1)
+	local activeConfigId = C_ClassTalents.GetActiveConfigID()
+	local config = C_Traits.GetConfigInfo(activeConfigId)
 
-			table.insert(result, {
-				talentID = talentID,
-				name = name
-			})
+	if #config.treeIDs > 1 then
+		error("More than 1 tree ID is not supported")
+	end
+
+	for _, treeId in ipairs(config.treeIDs) do
+		local nodes = C_Traits.GetTreeNodes(treeId)
+
+		for index, nodeId in ipairs(nodes) do
+			local node = C_Traits.GetNodeInfo(activeConfigId, nodeId)
+
+			if node.ID ~= 0 then
+				--- @type TalentNode
+				local nodeData = {
+					nodeID = nodeId,
+					posX = node.posX,
+					posY = node.posY,
+					type = node.type,
+					visibleEdges = {},
+					entryIDs = {}
+				}
+
+				for _, visibleEdge in ipairs(node.visibleEdges) do
+					table.insert(nodeData.visibleEdges, {
+						type = visibleEdge.type,
+						visualStyle = visibleEdge.visualStyle,
+						targetNode = visibleEdge.targetNode
+					})
+				end
+
+				for _, entryId in ipairs(node.entryIDs) do
+					local entry = C_Traits.GetEntryInfo(activeConfigId, entryId)
+					local definition = C_Traits.GetDefinitionInfo(entry.definitionID)
+
+					table.insert(nodeData.entryIDs, {
+						entryID = entryId,
+						type = entry.type,
+						definitionID = entry.definitionID,
+						spellID = definition.spellID,
+						name = GetSpellInfo(definition.spellID)
+					})
+				end
+
+				table.insert(result, nodeData)
+			end
 		end
-	end;
+	end
 
 	return result
 end
