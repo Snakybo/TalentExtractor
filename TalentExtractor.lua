@@ -18,6 +18,8 @@ local initialSpecs = {
 	EVOKER = 1465
 }
 
+local isUpdating
+
 --- @return table<integer,TalentNode[]>
 local function GetTalents()
 	--- @type TalentNode[]
@@ -104,13 +106,27 @@ local function GetPvPTalents()
 	return result
 end
 
+local function DelayParseTalents()
+	if isUpdating then
+		return
+	end
+
+	isUpdating = true
+
+	C_Timer.After(1, function()
+		TalentExtractor:ParseTalents()
+		isUpdating = false
+	end)
+end
+
 local function PLAYER_ENTERING_WORLD()
 	TalentExtractor:ParseInitialSpec()
-	TalentExtractor:ParseTalents()
+
+	DelayParseTalents()
 end
 
 local function PLAYER_TALENT_UPDATE()
-	TalentExtractor:ParseTalents()
+	DelayParseTalents()
 end
 
 function TalentExtractor:OnInitialize()
