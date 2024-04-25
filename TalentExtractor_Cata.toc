@@ -1,4 +1,4 @@
-## Interface: 30403
+## Interface: 40400
 ## Title: TalentExtractor
 ## Author: Snakybo
 ## Notes: Automatically retrieves talents and serializes them for LibTalentInfo.
@@ -8,4 +8,4 @@
 
 Libs\Libs.xml
 
-TalentExtractor_v1.lua
+TalentExtractor_v2.lua

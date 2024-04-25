@@ -1,4 +1,4 @@
---- @class TalentExtractor
+--- @class TalentExtractor : AceAddon, AceEvent-3.0
 --- @field public VERSION string
 --- @field public RegisterEvent function
 --- @field public UnregisterEvent function
@@ -26,3 +26,4 @@
 --- @class TalentContainer
 --- @field public talentID integer
 --- @field public name string
+--- @field public icon integer

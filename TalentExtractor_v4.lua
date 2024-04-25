@@ -1,6 +1,8 @@
---- @type TalentExtractor
-TalentExtractor = LibStub("AceAddon-3.0"):NewAddon("TalentExtractor", "AceEvent-3.0")
-TalentExtractor.VERSION = GetAddOnMetadata("TalentExtractor", "Version")
+-- This talent extractor is aimed at the talent system used from 4.0 until 9.X.
+
+--- @class TalentExtractorV3 : TalentExtractor
+TalentExtractorV3 = LibStub("AceAddon-3.0"):NewAddon("TalentExtractor", "AceEvent-3.0")
+TalentExtractorV3.VERSION = C_AddOns.GetAddOnMetadata("TalentExtractor", "Version")
 
 local initialSpecs = {
 	WARRIOR = 1446,
@@ -135,13 +137,13 @@ local function DelayParseTalents()
 	isUpdating = true
 
 	C_Timer.After(1, function()
-		TalentExtractor:ParseTalents()
+		TalentExtractorV3:ParseTalents()
 		isUpdating = false
 	end)
 end
 
 local function PLAYER_ENTERING_WORLD()
-	TalentExtractor:ParseInitialSpec()
+	TalentExtractorV3:ParseInitialSpec()
 
 	DelayParseTalents()
 end
@@ -150,23 +152,23 @@ local function PLAYER_TALENT_UPDATE()
 	DelayParseTalents()
 end
 
-function TalentExtractor:OnInitialize()
+function TalentExtractorV3:OnInitialize()
 	if TalentExtractorData == nil then
 		TalentExtractorData = {}
 	end
 end
 
-function TalentExtractor:OnEnable()
+function TalentExtractorV3:OnEnable()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", PLAYER_ENTERING_WORLD)
 	self:RegisterEvent("PLAYER_TALENT_UPDATE", PLAYER_TALENT_UPDATE)
 end
 
-function TalentExtractor:OnDisable()
+function TalentExtractorV3:OnDisable()
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	self:UnregisterEvent("PLAYER_TALENT_UPDATE")
 end
 
-function TalentExtractor:ParseInitialSpec()
+function TalentExtractorV3:ParseInitialSpec()
 	local className, classFileName = UnitClass("player")
 	local specID, specName = initialSpecs[classFileName], "Initial"
 	local _, build = GetBuildInfo()
@@ -183,7 +185,7 @@ function TalentExtractor:ParseInitialSpec()
 	}
 end
 
-function TalentExtractor:ParseTalents()
+function TalentExtractorV3:ParseTalents()
 	local specIndex = GetSpecialization()
 	local specID, specName = GetSpecializationInfo(specIndex)
 	local className, classFileName = UnitClass("player")
