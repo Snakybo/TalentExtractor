@@ -8,4 +8,4 @@
 
 Libs\Libs.xml
 
-TalentExtractor_v3.lua
+TalentExtractor_v4.lua

@@ -22,98 +22,15 @@ local initialSpecs = {
 
 local isUpdating
 
-local function StripColorCodes(str)
-	str = string.gsub(str, "|c%x%x%x%x%x%x%x%x", "")
-	str = string.gsub(str, "|c%x%x %x%x%x%x%x", "") -- the trading parts colour has a space instead of a zero for some weird reason
-	str = string.gsub(str, "|r", "")
-
-	return str
-end
-
---- @return table<integer,TalentNode[]>?
-local function GetTalents()
-	--- @type TalentNode[]
-	local result = {}
-
-	local configID = C_ClassTalents.GetActiveConfigID()
-	local configInfo = C_Traits.GetConfigInfo(configID)
-	local treeID = configInfo.treeIDs[1]
-	local nodes = C_Traits.GetTreeNodes(treeID)
-
-	for _, nodeID in ipairs(nodes) do
-		local nodeInfo = C_Traits.GetNodeInfo(configID, nodeID)
-
-		if nodeInfo.ID ~= 0 then
-			local node = {
-				ID = nodeInfo.ID,
-				posX = nodeInfo.posX,
-				posY = nodeInfo.posY,
-				maxRanks = nodeInfo.maxRanks,
-				flags = nodeInfo.flags,
-				type = nodeInfo.type,
-				entryIDs = nodeInfo.entryIDs,
-				entries = {},
-				conditionIDs = nodeInfo.conditionIDs,
-				conditions = {},
-				visibleEdges = {}
-			}
-
-			for i = 1, #nodeInfo.entryIDs do
-				local entryID = nodeInfo.entryIDs[i]
-				local entryInfo = C_Traits.GetEntryInfo(configID, entryID)
-				local definitionInfo = C_Traits.GetDefinitionInfo(entryInfo.definitionID)
-
-				if definitionInfo.spellID ~= nil then
-					node.entries[entryID] = {
-						entryID = entryID,
-						type = entryInfo.type,
-						maxRanks = entryInfo.maxRanks,
-						definition = {
-							spellID = definitionInfo.spellID,
-							name = StripColorCodes(TalentUtil.GetTalentNameFromInfo(definitionInfo)),
-							subtext = TalentUtil.GetTalentSubtextFromInfo(definitionInfo),
-							description = TalentUtil.GetTalentDescriptionFromInfo(definitionInfo),
-							overrideSpellID = TalentUtil.GetReplacesSpellNameFromInfo(definitionInfo),
-							icon = TalentButtonUtil.CalculateIconTexture(definitionInfo)
-						}
-					}
-				else
-					table.remove(nodeInfo.entryIDs, i)
-				end
-			end
-
-			for _, conditionID in ipairs(nodeInfo.conditionIDs) do
-				local conditionInfo = C_Traits.GetConditionInfo(configID, conditionID)
-
-				node.conditions[conditionID] = {
-					conditionID = conditionID,
-					specSetID = conditionInfo.specSetID,
-					isGate = conditionInfo.isGate,
-					isAlwaysMet = conditionInfo.isAlwaysMet,
-					traitCurrencyID = conditionInfo.traitCurrencyID
-				}
-			end
-
-			for _, edge in ipairs(nodeInfo.visibleEdges) do
-				table.insert(node.visibleEdges, {
-					visualStyle = edge.visualStyle,
-					type = edge.type,
-					targetNode = edge.targetNode
-				})
-			end
-
-			table.insert(result, node)
-		end
-	end
-
-	return result
-end
-
 --- @return TalentContainer[][]
 local function GetPvPTalents()
 	local result = {}
 
 	local slotInfo = C_SpecializationInfo.GetPvpTalentSlotInfo(1)
+	if  slotInfo == nil then
+		return result
+	end
+
 	local availableTalentIDs = slotInfo.availableTalentIDs;
 
 	for i = 1, #availableTalentIDs do
@@ -180,7 +97,6 @@ function TalentExtractorV3:ParseInitialSpec()
 		specName = specName,
 		className = className,
 		classFileName = classFileName,
-		talents = {},
 		pvpTalents = {}
 	}
 end
@@ -195,7 +111,6 @@ function TalentExtractorV3:ParseTalents()
 		return
 	end
 
-	local talents = GetTalents()
 	local pvpTalents = GetPvPTalents()
 
 	TalentExtractorData[specID] = {
@@ -205,9 +120,8 @@ function TalentExtractorV3:ParseTalents()
 		specName = specName,
 		className = className,
 		classFileName = classFileName,
-		talents = talents,
 		pvpTalents = pvpTalents
 	}
 
-	print("TalentExtractor: Updated talent and PvP talent data for " .. specName .. " " .. className .. " [" .. tostring(specID) .. "]")
+	print("TalentExtractor: Updated PvP talent data for " .. specName .. " " .. className .. " [" .. tostring(specID) .. "]")
 end
