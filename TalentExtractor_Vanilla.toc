@@ -1,4 +1,4 @@
-## Interface: 11502
+## Interface: 11503
 ## Title: TalentExtractor
 ## Author: Snakybo
 ## Notes: Automatically retrieves talents and serializes them for LibTalentInfo.

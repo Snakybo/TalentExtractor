@@ -1,4 +1,4 @@
-## Interface: 100206
+## Interface: 110002
 ## Title: TalentExtractor
 ## Author: Snakybo
 ## Notes: Automatically retrieves PvP talents and serializes them for LibTalentInfo.
