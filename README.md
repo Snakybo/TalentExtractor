@@ -1,12 +1,15 @@
 # WoW Talent Extractor
 
-A WoW addon to be used alongside [Talent Parser](https://github.com/Snakybo/TalentParser) to provide talent and PvP talent data for [LibTalentInfo](https://github.com/snakybo/LibTalentInfo).
+This simple addon extracts data that may not be accessible at runtime.
 
-The usage chain of these three items is:
+Data may contain:
 
-1. **WoW Talent Extractor (this)** serializes talent and PvP talent data from in-game for manipulation out-of-game.
-2. **WoW Talent Parsor parses** parses the serialized data and converts it into a Lua table that is suitable for usage by LibTalentInfo.
-3. **LibTalentInfo** injects the data back into the game as a library.
+* Class information
+* Specialization information
+* Talent information
+* PvP talent information
+
+Depending on the expansion and implementation, any of these may or may not be extracted.
 
 ## Installation
 
@@ -14,8 +17,10 @@ Simply download this repository and drag it into your `Interface/Addons` folder.
 
 ## Usage
 
-The addon will automatically work when you log in or switch specialization. It captures and serializes information about the talents and PvP talents for the current specialization.
+1. Log in on a class you want to extract data from
+2. Switch between all specializations
+3. Repeat for each class you want
 
-The data is saved inside of the `WTF` folder.
+## Toolchain
 
-To manipulate the data, use [Talent Parser](https://github.com/Snakybo/TalentParser).
+This addon is stage one of a two-stage process. After extracting all talent data, copy the saved variables file for use in [Talent Parser](https://github.com/Snakybo/TalentParser).

@@ -1,11 +1,23 @@
-## Interface: 110002
-## Title: TalentExtractor
+## Interface: 110005, 50500, 40402, 11507
+## Title: Talent Extractor
 ## Author: Snakybo
-## Notes: Automatically retrieves PvP talents and serializes them for LibTalentInfo.
+## Notes: Extract class, specialization, and talent information for use outside of the game.
 ## SavedVariables: TalentExtractorData
 ## Version: @project-version@
-## X-Category: Developer Tool
+## Category-enUS: Development Tools
+## Category-deDE: Entwicklungstools
+## Category-esES: Herramientas de Desarrollo
+## Category-esMX: Herramientas de Desarrollo
+## Category-frFR: Outils de Développement
+## Category-itIT:
+## Category-koKR:
+## Category-ptBR: Ferramentas de Desenvolvimento
+## Category-ruRU: Инструменты разработки
+## Category-zhCN: 开发工具
+## Category-zhTW: 開發工具
 
-Libs\Libs.xml
-
-TalentExtractor_v4.lua
+TalentExtractor.lua
+TalentExtractor_Classic.lua
+TalentExtractor_Cata.lua
+TalentExtractor_MoP.lua
+TalentExtractor_DF.lua
