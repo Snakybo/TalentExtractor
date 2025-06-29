@@ -17,6 +17,20 @@
 --- @type Addon
 local Addon = select(2, ...)
 
+local initialSpecs = {
+	WARRIOR = 1446,
+	PALADIN = 1451,
+	HUNTER = 1448,
+	ROGUE = 1453,
+	PRIEST = 1452,
+	DEATHKNIGHT = 1455,
+	SHAMAN = 1444,
+	MAGE = 1449,
+	WARLOCK = 1454,
+	MONK = 1450,
+	DRUID = 1447
+}
+
 --- @type TalentProvider
 local Provider = {
 	minInterfaceVersion = 50500,
@@ -28,10 +42,15 @@ local Provider = {
 	},
 
 	GetSize = function()
-		return GetNumSpecializations()
+		return GetNumSpecializations() + 1
 	end,
 
 	GetKey = function(index)
+		if index > GetNumSpecializations() then
+			local _, fileName = UnitClass("player")
+			return initialSpecs[fileName]
+		end
+
 		local id = C_SpecializationInfo.GetSpecializationInfo(index)
 		return id
 	end,
@@ -46,6 +65,15 @@ local Provider = {
 	end,
 
 	GetSpecInfo = function(index)
+		if index > GetNumSpecializations() then
+			local _, fileName = UnitClass("player")
+
+			return {
+				specIndex = 5,
+				specId = initialSpecs[fileName]
+			}
+		end
+
 		local id, name, _, icon = C_SpecializationInfo.GetSpecializationInfo(index)
 
 		return {
