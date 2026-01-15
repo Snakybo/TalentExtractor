@@ -36,7 +36,7 @@ local Addon = select(2, ...)
 --- @type TalentProvider
 local Provider = {
 	minInterfaceVersion = 110000,
-	maxInterfaceVersion = 120000,
+	maxInterfaceVersion = 130000,
 
 	events = {
 		"PLAYER_ENTERING_WORLD",
