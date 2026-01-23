@@ -6,7 +6,8 @@
 		"GetNumTalents",
 		"MAX_NUM_TALENTS",
 		"GetTalentTabInfo",
-		"MAX_NUM_TALENT_TIERS"
+		"MAX_NUM_TALENT_TIERS",
+		"LibStub"
 	],
 	"Lua.runtime.version": "Lua 5.1",
 	"Lua.runtime.builtin": {
@@ -21,7 +22,12 @@
 		"utf8": "disable"
 	},
 	"Lua.workspace.library": [
-		"~\\.vscode\\extensions\\ketho.wow-api-0.20.8\\Annotations\\Core",
-		"~\\.vscode\\extensions\\ketho.wow-api-0.20.8\\Annotations\\FrameXML"
+		"~\\.vscode\\extensions\\ketho.wow-api-0.21.0\\Annotations\\Core",
+		"~\\.vscode\\extensions\\ketho.wow-api-0.21.0\\Annotations\\FrameXML"
+	],
+	"Lua.workspace.useGitIgnore": false,
+	"wowAPI.luals.defineKnownGlobals": false,
+	"Lua.diagnostics.disable": [
+		"assign-type-mismatch"
 	]
 }

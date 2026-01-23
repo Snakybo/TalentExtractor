@@ -1,5 +1,5 @@
--- Talent Parser, a World of Warcraft addon to extract in-game data.
--- Copyright (C) 2024  Kevin Krol
+-- Talent Extractor, a World of Warcraft addon to extract in-game data.
+-- Copyright (C) 2026  Kevin Krol
 --
 -- This program is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -14,7 +14,7 @@
 -- You should have received a copy of the GNU General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
---- @type Addon
+--- @type TalentExtractorInternal
 local Addon = select(2, ...)
 
 --- @type TalentProvider

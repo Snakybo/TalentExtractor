@@ -1,5 +1,5 @@
--- Talent Parser, a World of Warcraft addon to extract in-game data.
--- Copyright (C) 2024  Kevin Krol
+-- Talent Extractor, a World of Warcraft addon to extract in-game data.
+-- Copyright (C) 2026  Kevin Krol
 --
 -- This program is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -46,17 +46,20 @@
 --- @class PvpTalentInfoContainer
 --- @field public pvpTalents Talent[]
 
---- @class Addon
---- @field private frame Frame
+local LibLog = LibStub("LibLog-1.0")
+
+--- @class TalentExtractorInternal
 local Addon = select(2, ...)
+
+--- @class TalentExtractor : AceAddon-3.0, AceEvent-3.0, LibLog-1.0
+TalentExtractor = LibStub("AceAddon-3.0"):NewAddon("TalentExtractor", "AceEvent-3.0", "LibLog-1.0")
 
 --- @param key unknown
 --- @param build integer
 --- @return boolean
 local function IsUpdateRequired(key, build)
-	return TalentExtractorData == nil or
-	       TalentExtractorData.data[key] == nil or
-		   TalentExtractorData.data[key].lastUpdateBuild < build
+	return TalentExtractorData.data[key] == nil or
+	TalentExtractorData.data[key].lastUpdateBuild < build
 end
 
 --- @param source table<string, unknown>
@@ -107,7 +110,9 @@ function Addon:Collect()
 			TalentExtractorData.maxInterfaceVersion = self.provider.maxInterfaceVersion
 			TalentExtractorData.data[key] = data
 
-			print("Updated talent data for", key)
+			TalentExtractor:LogInfo("Updated talent data for", key)
+		else
+			TalentExtractor:LogDebug("No update required for", key)
 		end
 	end
 end
@@ -118,16 +123,45 @@ function Addon:RegisterProvider(provider)
 
 	if interfaceVersion >= provider.minInterfaceVersion and interfaceVersion < provider.maxInterfaceVersion then
 		if self.provider ~= nil then
-			error("Multiple providers registered")
+			return TalentExtractor:LogFatal("Multiple providers registered")
 		end
 
 		self.provider = provider
-
-		for _, event in ipairs(provider.events) do
-			self.frame:RegisterEvent(event)
-		end
 	end
 end
 
-Addon.frame = CreateFrame("Frame")
-Addon.frame:SetScript("OnEvent", OnEvent)
+function TalentExtractor:OnInitialize()
+	TalentExtractorData = TalentExtractorData or {}
+	TalentExtractorDB = TalentExtractorDB or {}
+
+	TalentExtractor:SetLogLevelFromConfigTable(TalentExtractorDB)
+
+	if Addon.provider == nil then
+		TalentExtractor:LogFatal("No provider registered")
+	end
+end
+
+function TalentExtractor:OnEnable()
+	if Addon.provider == nil then
+		return
+	end
+
+	for _, event in ipairs(Addon.provider.events) do
+		TalentExtractor:RegisterEvent(event, OnEvent)
+		TalentExtractor:LogDebug("Registered event", event)
+	end
+end
+
+function TalentExtractor:OnDisable()
+	if Addon.provider == nil then
+		return
+	end
+
+	for _, event in ipairs(Addon.provider.events) do
+		TalentExtractor:UnregisterEvent(event)
+	end
+end
+
+function TalentExtractor:OnLogLevelChanged()
+	return TalentExtractorDB
+end

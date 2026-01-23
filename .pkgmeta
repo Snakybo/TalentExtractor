@@ -1,0 +1,17 @@
+package-as: TalentExtractor
+enable-nolib-creation: no
+
+ignore:
+  - .editorconfig
+  - CONTRIBUTING.md
+  - README.md
+
+externals:
+  Libs/AceAddon-3.0: https://repos.curseforge.com/wow/ace3/trunk/AceAddon-3.0
+  Libs/AceEvent-3.0: https://repos.curseforge.com/wow/ace3/trunk/AceEvent-3.0
+  Libs/CallbackHandler-1.0: https://repos.curseforge.com/wow/callbackhandler/trunk/CallbackHandler-1.0
+  Libs/LibStub: https://repos.curseforge.com/wow/libstub/trunk
+  Libs/LibLog-1.0: https://github.com/Snakybo/LibLog-1.0
+
+move-folders:
+  TalentExtractor/Libs/LibLog-1.0/LibLog-1.0: TalentExtractor/Libs/LibLog-1.0

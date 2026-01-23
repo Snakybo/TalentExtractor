@@ -1,10 +1,10 @@
-## Interface: 120000, 110207, 50503, 40402, 20505, 11508
+## Interface: 120000, 50503, 40402, 20505, 11508
 ## Title: Talent Extractor
 ## Author: Snakybo
 ## Notes: Extract class, specialization, and talent information for use outside of the game.
-## SavedVariables: TalentExtractorData
+## SavedVariables: TalentExtractorData, TalentExtractorDB
 ## Version: @project-version@
-## Category-enUS: Development Tools
+## Category: Development Tools
 ## Category-deDE: Entwicklungstools
 ## Category-esES: Herramientas de Desarrollo
 ## Category-esMX: Herramientas de Desarrollo
@@ -15,6 +15,8 @@
 ## Category-ruRU: Инструменты разработки
 ## Category-zhCN: 开发工具
 ## Category-zhTW: 開發工具
+
+Libs.xml
 
 TalentExtractor.lua
 TalentExtractor_Classic.lua
