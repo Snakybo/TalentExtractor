@@ -1,4 +1,4 @@
-## Interface: 120000, 50503, 40402, 20505, 11508
+## Interface: 120001, 50503, 40402, 20505, 11508
 ## Title: Talent Extractor
 ## Author: Snakybo
 ## Notes: Extract class, specialization, and talent information for use outside of the game.

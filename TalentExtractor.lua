@@ -110,9 +110,9 @@ function Addon:Collect()
 			TalentExtractorData.maxInterfaceVersion = self.provider.maxInterfaceVersion
 			TalentExtractorData.data[key] = data
 
-			TalentExtractor:LogInfo("Updated talent data for", key)
+			TalentExtractor:LogInfo("Updated talent data for {key}", key)
 		else
-			TalentExtractor:LogDebug("No update required for", key)
+			TalentExtractor:LogDebug("No update required for {key}", key)
 		end
 	end
 end
@@ -148,7 +148,7 @@ function TalentExtractor:OnEnable()
 
 	for _, event in ipairs(Addon.provider.events) do
 		TalentExtractor:RegisterEvent(event, OnEvent)
-		TalentExtractor:LogDebug("Registered event", event)
+		TalentExtractor:LogDebug("Registered event {event}", event)
 	end
 end
 
