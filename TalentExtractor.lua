@@ -102,10 +102,6 @@ function Addon:Collect()
 				CopyTo(self.provider.GetPvpTalentInfo(i), data)
 			end
 
-			TalentExtractorData = TalentExtractorData or {
-				data = {}
-			}
-
 			TalentExtractorData.minInterfaceVersion = self.provider.minInterfaceVersion
 			TalentExtractorData.maxInterfaceVersion = self.provider.maxInterfaceVersion
 			TalentExtractorData.data[key] = data
@@ -132,6 +128,8 @@ end
 
 function TalentExtractor:OnInitialize()
 	TalentExtractorData = TalentExtractorData or {}
+	TalentExtractorData.data = TalentExtractorData.data or {}
+
 	TalentExtractorDB = TalentExtractorDB or {}
 
 	TalentExtractor:SetLogLevelFromConfigTable(TalentExtractorDB)
