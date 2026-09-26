@@ -1,4 +1,4 @@
-## Interface: 120007, 50504, 40402, 20506, 11509
+## Interface: 120007, 50504, 40402, 20506, 16001, 11509
 ## Title: Talent Extractor
 ## Author: Snakybo
 ## Notes: Extract class, specialization, and talent information for use outside of the game.
@@ -23,3 +23,5 @@ TalentExtractor_Classic.lua
 TalentExtractor_Cata.lua
 TalentExtractor_MoP.lua
 TalentExtractor_DF.lua
+TalentExtractor_Forever.lua
+

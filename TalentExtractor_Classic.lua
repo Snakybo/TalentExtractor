@@ -26,6 +26,10 @@ local Provider = {
 		"PLAYER_ENTERING_WORLD"
 	},
 
+	IsSupported = function()
+		return GetNumTalentTabs ~= nil
+	end,
+
 	GetSize = function()
 		return 1
 	end,
