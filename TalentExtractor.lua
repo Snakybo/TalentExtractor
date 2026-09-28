@@ -129,19 +129,19 @@ function Addon:RegisterProvider(provider)
 	end
 end
 
+--- @protected
 function TalentExtractor:OnInitialize()
 	TalentExtractorData = TalentExtractorData or {}
 	TalentExtractorData.data = TalentExtractorData.data or {}
 
-	TalentExtractorDB = TalentExtractorDB or {}
-
-	TalentExtractor:SetLogLevelFromConfigTable(TalentExtractorDB)
+	TalentExtractor:SetLogLevelFromConfigTable(TalentExtractorData)
 
 	if Addon.provider == nil then
 		TalentExtractor:LogFatal("No provider registered")
 	end
 end
 
+--- @protected
 function TalentExtractor:OnEnable()
 	if Addon.provider == nil then
 		return
@@ -153,6 +153,7 @@ function TalentExtractor:OnEnable()
 	end
 end
 
+--- @protected
 function TalentExtractor:OnDisable()
 	if Addon.provider == nil then
 		return
@@ -163,6 +164,7 @@ function TalentExtractor:OnDisable()
 	end
 end
 
+--- @private
 function TalentExtractor:OnLogLevelChanged()
-	return TalentExtractorDB
+	return TalentExtractorData
 end
