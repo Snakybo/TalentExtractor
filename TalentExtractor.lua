@@ -18,6 +18,7 @@
 --- @field public minInterfaceVersion integer
 --- @field public maxInterfaceVersion integer
 --- @field public events string[]
+--- @field public IsSupported? fun(): boolean
 --- @field public GetSize fun(): integer
 --- @field public GetKey fun(index: integer): unknown
 --- @field public GetClassInfo fun(): ClassInfoContainer
@@ -117,7 +118,9 @@ end
 function Addon:RegisterProvider(provider)
 	local interfaceVersion = select(4, GetBuildInfo())
 
-	if interfaceVersion >= provider.minInterfaceVersion and interfaceVersion < provider.maxInterfaceVersion then
+	local isSupported = provider.IsSupported == nil or provider.IsSupported()
+
+	if isSupported and interfaceVersion >= provider.minInterfaceVersion and interfaceVersion < provider.maxInterfaceVersion then
 		if self.provider ~= nil then
 			return TalentExtractor:LogFatal("Multiple providers registered")
 		end
