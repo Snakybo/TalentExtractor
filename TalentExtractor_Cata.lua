@@ -60,16 +60,25 @@ local Provider = {
 		--- @type Talent[]
 		local talents = {}
 
-		for i = 1, GetNumTalents(index) do
-			local name, icon  = GetTalentInfo(index, i)
+		--- @type TalentInfoQuery
+		local query = {
+			specializationIndex = index
+		}
+
+        for i = 1, GetNumTalents(index) do
+			query.talentIndex = i
+
+			local talent  = C_SpecializationInfo.GetTalentInfo(query)
 			local id = (index - 1) * MAX_NUM_TALENTS + i
 
-			if name ~= nil then
+			if talent ~= nil then
 				table.insert(talents, {
 					id = id,
-					name = name,
-					icon = icon
-				})
+					name = talent.name,
+					icon = talent.icon
+                })
+            else
+				TalentExtractor:LogWarning("Failed to get talent info for {tab}-{index}", index, i)
 			end
 		end
 

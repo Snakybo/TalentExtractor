@@ -88,20 +88,26 @@ local Provider = {
 		--- @type Talent[]
 		local talents = {}
 
+		--- @type TalentInfoQuery
+		local query = {}
+
 		for tier = 1, MAX_NUM_TALENT_TIERS do
+            query.tier = tier
+
 			for column = 1, NUM_TALENT_COLUMNS do
-				local query = {
-					tier = tier,
-					column = column
-				}
+				query.column = column
 
-				local info = C_SpecializationInfo.GetTalentInfo(query)
+				local talent = C_SpecializationInfo.GetTalentInfo(query)
 
-				table.insert(talents, {
-					id = info.talentID,
-					name = info.name,
-					icon = info.icon
-				})
+				if talent ~= nil then
+					table.insert(talents, {
+						id = talent.talentID,
+						name = talent.name,
+						icon = talent.icon
+                    })
+                else
+					TalentExtractor:LogWarning("Failed to get talent info for {tier}-{column}", tier, column)
+				end
 			end
 		end
 
