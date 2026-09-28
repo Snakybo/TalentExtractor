@@ -17,9 +17,9 @@ Simply download this repository and drag it into your `Interface/Addons` folder.
 
 ## Usage
 
-1. Log in on a class you want to extract data from
-2. Switch between all specializations
-3. Repeat for each class you want
+1. Create a character of every class, a high-level preset is preferred as some data can only be retrieved for the active specialization, so access to spec switching is recommended.
+2. If the game version supports it, switch between all available specializations.
+3. Repeat for each class
 
 ## Toolchain
 
